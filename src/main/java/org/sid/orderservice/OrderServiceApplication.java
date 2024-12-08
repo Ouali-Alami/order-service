@@ -1,5 +1,6 @@
 package org.sid.orderservice;
 
+import feign.Logger;
 import org.sid.orderservice.entities.Order;
 import org.sid.orderservice.entities.ProductItem;
 import org.sid.orderservice.enums.OrderStatus;
@@ -25,6 +26,11 @@ public class OrderServiceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(OrderServiceApplication.class, args);
+	}
+
+	@Bean
+	Logger.Level feignLoggerLevel() {
+		return Logger.Level.FULL;  // Cela permet d'activer les logs complets pour Feign
 	}
 
 	@Bean

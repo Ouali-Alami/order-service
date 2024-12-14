@@ -1,5 +1,6 @@
 package org.sid.orderservice.entities;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,5 +25,13 @@ public class Order {
     private Customer customer; // usually handled by DTO
     @OneToMany(mappedBy = "order")
     private List<ProductItem> productItems;
+    @JsonGetter("total")
+    public double geTotal(){
+        double total = 0;
+        for (ProductItem productItem : productItems) {
+            total += productItem.getAmount()  ;
+        }
+        return total;
+    }
 
 }

@@ -24,7 +24,7 @@ public class OrderRestController {
 
     @GetMapping("/fullOrder/{id}")
     public Order getOrder(@PathVariable Long id) {
-        Order order = orderRepository.findById(id).orElse(null);
+        Order order = orderRepository.findById(id).get();
         Customer customer = customerRestClientService.customerById(order.getCustomerId());
         order.setCustomer(customer);
         order.getProductItems().forEach(productItem -> {

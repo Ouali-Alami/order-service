@@ -1,5 +1,6 @@
 package org.sid.orderservice.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +20,13 @@ public class ProductItem {
     private double price;
     private int quantity;
     private double discount;
+    //Warning here we don't use DTO so we have a infinite loop
+    //that why we use JsonProperty in write access
     @ManyToOne
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Order order;
+
+    public double getAmount(){
+        return price * quantity*(1-discount);
+    }
 }
